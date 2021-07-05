@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:27:50 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/03 19:48:44 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/05 14:38:20 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ namespace ft
 		typedef const value_type*													const_pointer;
 		typedef vector_iterator<value_type>											iterator;
 		typedef vector_iterator<value_type, const value_type*, const value_type&>	const_iterator;
-		//typedef VectorReverseIterator<iterator>										reverse_iterator;
-		//typedef VectorReverseConstIterator<const_iterator>							const_reverse_iterator;
+		typedef vector_reverse_iterator<iterator>									reverse_iterator;
+		typedef vector_reverse_iterator<const_iterator>								const_reverse_iterator;
 		typedef ptrdiff_t															difference_type;
 		typedef size_t																size_type;
 	private:
@@ -105,20 +105,20 @@ namespace ft
 
 		/* ITERATORS */
 
-		iterator 				begin() 		{ return (iterator(_arr)); };
-		const_iterator 			begin()	const	{ return (const_iterator(_arr)); };
-		iterator 				end()			{ return (iterator(_arr + _size)); };
-		const_iterator 			end()	const	{ return (const_iterator(_arr + _size)); };
-		//reverse_iterator 		rbegin() { return (reverse_iterator(_arr + _size));};
-		//const_reverse_iterator	rbegin() const {return (const_reverse_iterator(_arr + _size));};
-		//reverse_iterator 		rend() {return (reverse_iterator(_arr));};
-		//const_reverse_iterator	rend() const {return (const_reverse_iterator(_arr));};
+		iterator 					begin() 			{ return (iterator(_arr)); }
+		const_iterator 				begin()		const	{ return (const_iterator(_arr)); }
+		iterator 					end()				{ return (iterator(_arr + _size)); }
+		const_iterator 				end()		const	{ return (const_iterator(_arr + _size)); }
+		reverse_iterator 			rbegin() 			{ return (reverse_iterator(_arr + _size)); }
+		const_reverse_iterator		rbegin()	const	{ return (const_reverse_iterator(_arr + _size)); }
+		reverse_iterator 			rend()				{ return (reverse_iterator(_arr)); }
+		const_reverse_iterator		rend()		const	{ return (const_reverse_iterator(_arr)); }
 
 		/* CAPACITY */
-		size_type size()		const	{ return (_size); };
-		size_type max_size()	const	{ return (_alloc.max_size()); };
-		size_type capacity()	const	{ return (_capacity); };
-		bool empty()			const	{ return (_size == 0); };
+		size_type size()		const	{ return (_size); }
+		size_type max_size()	const	{ return (_alloc.max_size()); }
+		size_type capacity()	const	{ return (_capacity); }
+		bool empty()			const	{ return (_size == 0); }
 		
 		void reserve (size_type n)
 		{
@@ -126,7 +126,7 @@ namespace ft
 				throw std::length_error("vector");
 			if (n > _capacity)
 				realloc(n);
-		};
+		}
 		
 		void resize (size_type n, value_type val = value_type())
 		{
@@ -154,7 +154,58 @@ namespace ft
 		/* MODIFIERS */
 		void push_back (const value_type& val) 
 		{
+			if (_capacity == _size)
+				reserve(2 * _size);
+			if (_capacity == 0)
+				reserve(1);
+			_alloc.construct(&data[_size], val);
+			_size++;
+		}
+
+		// pop_back
+		void pop_back() 
+		{
+			if (_size)
+			{
+				--_size;
+				_alloc.destroy(&_arr[_size - 1]);
+			}
+		}
+
+		void clear()
+		{
+			while (_size)
+				pop_back();
+		};
+
+		// std::vector::insert
+		iterator insert (iterator position, const value_type& val)
+		{
 			
 		}
+		
+
+		public:
+		reference operator[] (size_type n) {return (_arr[n]);};
+		const_reference operator[] (size_type n) const {return (_arr[n]);}
+		
+		reference at (size_type n)
+		{
+			if (n >= _size)
+				throw std::out_of_range("vector");
+			return (_arr[n]);
+		};
+		const_reference at (size_type n) const
+		{
+			if (n >= _size)
+				throw std::out_of_range("vector");
+			return (_arr[n]);
+		};
+		
+		reference front(){return (_arr[0]);};
+		const_reference front() const{return (_arr[0]);};
+		
+		reference back(){return (_arr[_size - 1]);};
+		const_reference back() const{return (_arr[_size - 1]);};
 	};
 }

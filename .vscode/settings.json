@@ -12,6 +12,8 @@
         "unordered_map": "cpp",
         "vector": "cpp",
         "__node_handle": "cpp",
-        "iterator": "cpp"
+        "iterator": "cpp",
+        "__bit_reference": "cpp",
+        "functional": "cpp"
     }
 }
