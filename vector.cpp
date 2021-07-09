@@ -6,17 +6,16 @@
 /*   By: efumiko <efumiko@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:20:03 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/03 13:33:57 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/09 21:24:52 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <vector>
+#include "vector.hpp"
 
-int main(int argc, char const *argv[])
-{
 
-	// CONSTRUCTORS
+// CONSTRUCTORS
 	/*
 	(1) empty container constructor (default constructor)
 		Constructs an empty container, with no elements.
@@ -27,21 +26,36 @@ int main(int argc, char const *argv[])
 	(4) copy constructor
 		Constructs a container with a copy of each of the elements in x, in the same order.
 	*/
-
-	std::vector<int> first;                                // empty vector of ints
+int test_constructors()
+{
+	ft::vector<int> first;                                // empty vector of ints
+	ft::vector<int> second (4,100);                       // four ints with value 100
+	ft::vector<int> third (second.begin(),second.end());  // iterating through second
+	// ft::vector<int> fourth (third);                       // a copy of third
 	
+	std::cout << "capacity: " << std::endl;
+	std::cout << first.capacity() << std::endl;
+	std::cout << second.capacity() << std::endl;
+	std::cout << third.capacity() << std::endl;
+	// std::cout << fourth.capacity() << std::endl;
 
-	// std::vector<int> second (4,100);                       // four ints with value 100
-	// std::vector<int> third (second.begin(),second.end());  // iterating through second
-	// std::vector<int> fourth (third);                       // a copy of third
+	std::cout << "size: " << std::endl;
+	std::cout << first.size() << std::endl;
+	std::cout << second.size() << std::endl;
+	std::cout << third.size() << std::endl;
+	// std::cout << fourth.size() << std::endl;
 	
-	// int myints[] = {16,2,77,29};
-  	// std::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
+	//int myints[] = {16,2,77,29};
+  	// ft::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
 
   	// std::cout << "The contents of fifth are:";
-  	// for (std::vector<int>::iterator it = fifth.begin(); it != fifth.end(); ++it)
-    // 	std::cout << ' ' << *it;
+  	// for (ft::vector<int>::iterator it = fifth.begin(); it != fifth.end(); ++it)
+    //  	std::cout << ' ' << *it;
   	// std::cout << '\n';
-	
-	// return 0;
+	return (1);
+}
+
+int main(int argc, char const *argv[])
+{
+	test_constructors();
 }

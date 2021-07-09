@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 18:50:22 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/05 13:55:34 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/09 18:44:19 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,12 @@ namespace ft
 	
 	public:
 		/* default-constructible, param-constructible, copy-constructible, copy-assignable and destructible */
-		vector_iterator() : _curr(0) {};
-		vector_iterator(pointer p) : _curr(p) {}
-		vector_iterator(const iterator& it) : _curr(it) {} 
-		vector_iterator(const vector_reverse_iterator<iterator>& it) : _curr(it._curr) {}
+		vector_reverse_iterator() : _curr(0) {};
+		vector_reverse_iterator(pointer p) : _curr(p) {}
+		vector_reverse_iterator(const iterator& it) : _curr(it) {} 
+		vector_reverse_iterator(const vector_reverse_iterator<iterator>& it) : _curr(it._curr) {}
 
-		~vector_iterator() {}
+		~vector_reverse_iterator() {}
 
 		/* operators */
 		iterator_type &operator++()
@@ -140,7 +140,7 @@ namespace ft
 
 		iterator_type	operator++(int)
 		{
-			vector_iterator tmp(*this);
+			vector_reverse_iterator tmp(*this);
 			--_curr;
 			return (tmp);
 		}
@@ -153,7 +153,7 @@ namespace ft
 		
 		iterator_type operator--(int)
 		{
-			vector_iterator tmp(*this);
+			vector_reverse_iterator tmp(*this);
 			++_curr;
 			return (tmp);
 		}

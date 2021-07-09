@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:27:50 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/05 14:38:20 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/09 21:35:06 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <utility>
 #include <iostream>
 #include "vector_iterator.hpp"
+#include "utils.hpp"
 
 namespace ft
 {
@@ -69,16 +70,22 @@ namespace ft
 		}
 		
 		template <class InputIterator>
-        vector (InputIterator first, InputIterator last,
-                 const allocator_type& alloc = allocator_type())
+		vector (InputIterator first, InputIterator last,
+					typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0,
+					const allocator_type& alloc = allocator_type())
+					: _size(0), _capacity(0), _alloc(alloc)
 		{
 			InputIterator tmp(first);
-
+			if (first != last)
+				std::cout << *tmp << std::endl;
+				
 			while (tmp != last)
 			{
+				std::cout << *tmp << std::endl;
 				++_size;
 				++_capacity;
 				++tmp;
+				std::cout << _size << " " << _capacity << std::endl;
 			}
 			_arr = _alloc.allocate(_capacity);
 			for (size_type i = 0; first != last; ++first, ++i)
@@ -90,7 +97,7 @@ namespace ft
 		{
 			_arr = _alloc.allocate(this->_capacity);
 			for (size_type i = 0; i < _size; ++i)
-				alloc_.construct(this->array_ + i, x[i]);
+				_alloc.construct(this->_arr + i, x[i]);
 		}
 
 		~vector()
@@ -98,8 +105,8 @@ namespace ft
 			if (_arr)
 			{
 				for (iterator it = this->begin(); it != this->end(); ++it)
-					alloc_.destroy(&(*it));
-				alloc_.deallocate(this->array_, this->capacity_);
+					_alloc.destroy(&(*it));
+				_alloc.deallocate(this->_arr, this->_capacity);
 			}
 		}
 
@@ -158,7 +165,7 @@ namespace ft
 				reserve(2 * _size);
 			if (_capacity == 0)
 				reserve(1);
-			_alloc.construct(&data[_size], val);
+			_alloc.construct(&_arr[_size], val);
 			_size++;
 		}
 
