@@ -15,5 +15,5 @@ else
 		echo "ft::$2 replace to std::$2"
 		sed -i "" "s/ft::$2/std::$2/" "$3"
 	fi
-	clang++ "$3"
+	clang++ "$3" -g
 fi

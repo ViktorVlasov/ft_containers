@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 18:50:22 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/09 18:44:19 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/10 22:48:25 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,13 @@ namespace ft
 		/* default-constructible, param-constructible, copy-constructible, copy-assignable and destructible */
 		vector_iterator() : _curr(0) {};
 		vector_iterator(pointer p) : _curr(p) {}
-		vector_iterator(const vector_iterator<T>& copy) {*this = copy;}
+		vector_iterator(vector_iterator<T> const &copy) : _curr(copy.base()) {}
 		~vector_iterator() {}
+
+		pointer base() const
+		{
+			return (this->_curr);
+		}
 
 		/* operators */
 		vector_iterator	&operator=(const vector_iterator& other) {
@@ -50,9 +55,9 @@ namespace ft
 
 		vector_iterator	operator++(int)
 		{
-			vector_iterator tmp(*this);
+			vector_iterator old(*this);
 			++_curr;
-			return (tmp);
+			return (old);
 		}
 
 		vector_iterator &operator--()
@@ -63,29 +68,34 @@ namespace ft
 		
 		vector_iterator operator--(int)
 		{
-			vector_iterator tmp(*this);
+			vector_iterator old(*this);
 			--_curr;
-			return (tmp);
+			return (old);
 		}
 
 		difference_type	operator-(vector_iterator b) const {
 			return (_curr - b._curr);
 		}
 
-		difference_type	operator+(vector_iterator b) const { // надо затестить, точно ли нужен оператор?
+		difference_type	operator+(vector_iterator b) const {
 			return (_curr + b._curr);
 		}
 
 		vector_iterator	operator-(difference_type n) const {
-			vector_iterator tmp(*this);
-			tmp._curr -= n;
-			return (tmp);
+			vector_iterator old(*this);
+			old._curr -= n;
+			return (old);
 		}
 
 		vector_iterator	operator+(difference_type n) const {
-			vector_iterator tmp(*this);
-			tmp._curr += n;
-			return (tmp);
+			vector_iterator old(*this);
+			old._curr += n;
+			return (old);
+		}
+		friend vector_iterator operator+(difference_type lhs, const vector_iterator& rhs) {
+			vector_iterator old(rhs);
+			old._curr += lhs;
+			return (old);
 		}
 
 		vector_iterator	&operator+=(difference_type n) {
@@ -101,8 +111,8 @@ namespace ft
 		pointer		operator->() const { return (_curr); }
 		reference	operator[](difference_type n) const { return (*(_curr + n)); }
 
-		friend bool operator==(const vector_iterator& lhs, const vector_iterator& rhs) { return (lhs._curr == rhs._curr);}		
-		friend bool operator!=(const vector_iterator& lhs, const vector_iterator& rhs) { return (lhs._curr != lhs._curr); }
+		friend bool operator==(const vector_iterator& lhs, const vector_iterator& rhs) { return (lhs._curr == rhs._curr);}
+		friend bool operator!=(const vector_iterator& lhs, const vector_iterator& rhs) { return (lhs._curr != rhs._curr); }
 		friend bool operator<(const vector_iterator& lhs, const vector_iterator& rhs) { return (lhs._curr < rhs._curr);}
 		friend bool operator>(const vector_iterator& lhs, const vector_iterator& rhs) { return (lhs._curr > rhs._curr); }
 		friend bool operator<=(const vector_iterator& lhs, const vector_iterator& rhs) { return (lhs._curr <= rhs._curr); }
@@ -188,7 +198,7 @@ namespace ft
 		reference	operator[](difference_type n) const { return *(*this + n); }
 
 		friend bool operator==(const iterator_type& lhs, const iterator_type& rhs) { return (lhs._curr == rhs._curr);}		
-		friend bool operator!=(const iterator_type& lhs, const iterator_type& rhs) { return (lhs._curr != lhs._curr); }
+		friend bool operator!=(const iterator_type& lhs, const iterator_type& rhs) { return (lhs._curr != rhs._curr); }
 		friend bool operator<(const iterator_type& lhs, const iterator_type& rhs) { return (lhs._curr > rhs._curr);}
 		// friend bool operator>(const iterator_type& lhs, const iterator_type& rhs) { return (rhs < lhs); }
 		// friend bool operator<=(const iterator_type& lhs, const iterator_type& rhs) { return !(rhs < lhs); }

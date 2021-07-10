@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:27:50 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/09 21:35:06 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/10 18:47:07 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,12 @@ namespace ft
 					: _size(0), _capacity(0), _alloc(alloc)
 		{
 			InputIterator tmp(first);
-			if (first != last)
-				std::cout << *tmp << std::endl;
 				
 			while (tmp != last)
 			{
-				std::cout << *tmp << std::endl;
 				++_size;
 				++_capacity;
 				++tmp;
-				std::cout << _size << " " << _capacity << std::endl;
 			}
 			_arr = _alloc.allocate(_capacity);
 			for (size_type i = 0; first != last; ++first, ++i)
