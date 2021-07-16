@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:20:03 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/10 23:04:25 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/16 17:28:39 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,14 +142,102 @@ int test_iterators()
 	return (1);
 }
 
+int test_const_iterators()
+{
+	std::vector<int> test;
+	test.push_back(10);
+	test.push_back(20);
+	test.push_back(30);
+	std::vector<int>::const_iterator first_iter = test.begin();
+	std::vector<int>::const_iterator second_iter = --(test.end());
+
+	std::vector<int>::const_iterator default_iter;
+	std::vector<int>::const_iterator copy_iterator(first_iter);
+	if (copy_iterator == first_iter)
+		std::cout << "copy_iterator == first_iter is true" << std::endl;
+	std::vector<int>::const_iterator assign_iter = first_iter;
+	if (assign_iter == first_iter)
+		std::cout << "assign_iter == first_iter is true" << std::endl;
+	if (first_iter != second_iter)
+		std::cout << "first_iter != second_iter is true\n" << std::endl;	
+	return (1);
+
+	// *first_iter = 100; - unavailable, because iterator is const
+}
+
 int test_reverse_iterators()
 {
+	std::vector<int> test;
+	test.push_back(10);
+	test.push_back(20);
+	test.push_back(30);
+
+	std::cout << "myvector contains:";
+  	for (std::vector<int>::iterator it = test.begin(); it != test.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+	std::vector<int>::reverse_iterator it = test.rbegin();
+	std::cout << "reverse output from rbegin to rend:";
+	for (; it != test.rend(); it++)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+
+	// =======================================================
+
+	std::vector<int>::reverse_iterator rit_begin = test.rbegin();
+	std::vector<int>::reverse_iterator rit_end = --test.rend();
+	std::cout << "test.rbegin(): " << *rit_begin << std::endl;
+	std::cout << "--test.rend(): " << *rit_end << std::endl;
+
+	// =======================================================
+	std::cout << std::endl;
+	std::cout << "=====Member functions=====\n" << std::endl;
+
+	std::cout << "Addition operator: " << *(rit_begin + 1) << std::endl;
+	std::cout << "Increment iterator position: " << *(rit_begin++) << std::endl;
+	std::cout << "Subtraction operator: " << *(rit_end - 1) << std::endl;
+	std::cout << "Decrease iterator position: " << *(rit_end--) << std::endl;
+	std::cout << "Dereference iterator with offset: " << rit_begin[0] << std::endl;
 	
+	std::cout << "Advance iterator: "; 
+	rit_begin += 1;
+	std::cout << *rit_begin << std::endl;
+	std::cout << "Retrocede iterator: "; 
+	rit_begin -= 1;
+	std::cout << *rit_end << std::endl;
+
+	std::cout << std::endl;
+	std::cout << "=====relational operators=====\n" << std::endl;
+	
+	
+
+	std::cout << "(<, >, <= and >=)" << std::endl;
+	// if (rit_begin  rit_end)
+	// 	std::cout << "rit_begin < rit_end is true" << std::endl;
+	// if (rit_end > rit_begin)
+	// 	std::cout << "rit_begin > rit_end is true" << std::endl;
+	 if (rit_begin <= rit_begin)
+		std::cout << "first_iter <= first_iter is true" << std::endl;
+	if (rit_end >= rit_end)
+		std::cout << "third_iter >= third_iter is true" << std::endl;
+	
+	return (1);
 }
+
+//  Написать тесты для реверс итератора
+//  Тесты для capacity
+//  Тесты для Element access
+
+//  17.07
+//  Modifiers - assign, insert, swap, clear
+//  relational operations
 
 int main(int argc, char const *argv[])
 {
-	test_constructors();
-	test_iterators();
-
+	//test_constructors();
+	//test_iterators();
+	//test_const_iterators();
+	test_reverse_iterators();
 }
+

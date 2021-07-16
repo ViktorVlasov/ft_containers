@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:27:50 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/10 18:47:07 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/16 17:03:46 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,10 @@ namespace ft
 		const_iterator 				begin()		const	{ return (const_iterator(_arr)); }
 		iterator 					end()				{ return (iterator(_arr + _size)); }
 		const_iterator 				end()		const	{ return (const_iterator(_arr + _size)); }
-		reverse_iterator 			rbegin() 			{ return (reverse_iterator(_arr + _size)); }
-		const_reverse_iterator		rbegin()	const	{ return (const_reverse_iterator(_arr + _size)); }
-		reverse_iterator 			rend()				{ return (reverse_iterator(_arr)); }
-		const_reverse_iterator		rend()		const	{ return (const_reverse_iterator(_arr)); }
+		reverse_iterator 			rbegin() 			{ return (reverse_iterator(_arr + (_size - 1))); }
+		const_reverse_iterator		rbegin()	const	{ return (const_reverse_iterator(_arr + (_size - 1))); }
+		reverse_iterator 			rend()				{ return (reverse_iterator(_arr - 1)); }
+		const_reverse_iterator		rend()		const	{ return (const_reverse_iterator(_arr - 1)); }
 
 		/* CAPACITY */
 		size_type size()		const	{ return (_size); }
@@ -155,6 +155,7 @@ namespace ft
 			};
 
 		/* MODIFIERS */
+		public:
 		void push_back (const value_type& val) 
 		{
 			if (_capacity == _size)

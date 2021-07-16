@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# if $1 contains 1, then std:: replace to ft::
-# else if $1 contains 0, then vice versa
+# ./my_change.sh 
+# if $1 contains ft, then std:: replace to ft::
+# else if $1 contains std, then vice versa
 
 # $2 is name of class, for example: vector, map, set, etc.
 # $3 filepath
