@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: efumiko <efumiko@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:27:50 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/16 17:03:46 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/17 21:37:44 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ namespace ft
 		void reserve (size_type n)
 		{
 			if (n > max_size())
-				throw std::length_error("vector");
+				throw std::length_error("vector::reserve");
 			if (n > _capacity)
 				realloc(n);
 		}
@@ -142,6 +142,7 @@ namespace ft
 		}
 		
 		private:
+			// проверить, точно ли все корректно
 			void realloc(size_type newCapacity)
 			{
 				pointer tmp = _alloc.allocate(newCapacity);
@@ -156,60 +157,105 @@ namespace ft
 
 		/* MODIFIERS */
 		public:
-		void push_back (const value_type& val) 
-		{
-			if (_capacity == _size)
-				reserve(2 * _size);
-			if (_capacity == 0)
-				reserve(1);
-			_alloc.construct(&_arr[_size], val);
-			_size++;
-		}
-
-		// pop_back
-		void pop_back() 
-		{
-			if (_size)
+			template <class InputIterator>
+  			void assign(InputIterator first, InputIterator last,
+			  		typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 			{
-				--_size;
-				_alloc.destroy(&_arr[_size - 1]);
+				InputIterator tmp(first);
+				if (_arr)
+				{
+					for (iterator it = this->begin(); it != this->end(); ++it)
+						_alloc.destroy(&(*it));
+					_alloc.deallocate(this->_arr, this->_capacity);
+				}
+				_size = 0;
+				_capacity = 0;
+				while (tmp != last)
+				{
+					++_size;
+					++_capacity;
+					++tmp;
+				}
+				_arr = _alloc.allocate(_capacity);
+				for (size_type i = 0; first != last; ++first, ++i)
+					_alloc.construct(_arr + i, *first);
 			}
-		}
 
-		void clear()
-		{
-			while (_size)
-				pop_back();
-		};
+			void assign(size_type n, const value_type& val)
+			{
+				if (n > max_size())
+					throw std::length_error("cannot create std::vector larger than max_size()");
+				if (_arr)
+				{
+					for (iterator it = this->begin(); it != this->end(); ++it)
+						_alloc.destroy(&(*it));
+					_alloc.deallocate(this->_arr, this->_capacity);
+				}
+				_size = n;
+				_capacity = n;
+				_arr = _alloc.allocate(_capacity);
+				for (size_type i = 0; i < _size; ++i)
+					_alloc.construct(_arr + i, val);
+			}
 
-		// std::vector::insert
-		iterator insert (iterator position, const value_type& val)
-		{
-			
-		}
+			void push_back(const value_type& val) 
+			{
+				if (_capacity == _size)
+					reserve(2 * _size);
+				if (_capacity == 0)
+					reserve(1);
+				_alloc.construct(&_arr[_size], val);
+				_size++;
+			}
+
+			// pop_back
+			void pop_back() 
+			{
+				if (_size)
+				{
+					--_size;
+					_alloc.destroy(&_arr[_size - 1]);
+				}
+			}
+
+			void clear()
+			{
+				while (_size)
+					pop_back();
+			};
+
+			// std::vector::insert
+			iterator insert (iterator position, const value_type& val)
+			{
+				
+			}
 		
-
+		// ====Element access====
 		public:
-		reference operator[] (size_type n) {return (_arr[n]);};
-		const_reference operator[] (size_type n) const {return (_arr[n]);}
-		
-		reference at (size_type n)
-		{
-			if (n >= _size)
-				throw std::out_of_range("vector");
-			return (_arr[n]);
-		};
-		const_reference at (size_type n) const
-		{
-			if (n >= _size)
-				throw std::out_of_range("vector");
-			return (_arr[n]);
-		};
-		
-		reference front(){return (_arr[0]);};
-		const_reference front() const{return (_arr[0]);};
-		
-		reference back(){return (_arr[_size - 1]);};
-		const_reference back() const{return (_arr[_size - 1]);};
+			reference operator[] (size_type n) {return (_arr[n]);};
+			const_reference operator[] (size_type n) const {return (_arr[n]);}
+			
+			reference at (size_type n)
+			{
+				if (n >= _size)
+					throw std::out_of_range("vector::_M_range_check: __n (which is " + 
+											std::to_string(n) + ") >= this->size() (which is " + 
+											std::to_string(_size) + ")");
+				return (_arr[n]);
+			};
+			const_reference at (size_type n) const
+			{
+				if (n >= _size)
+					throw std::out_of_range("vector::_M_range_check: __n (which is " + 
+											std::to_string(n) + ") >= this->size() (which is " + 
+											std::to_string(_size) + ")");
+				return (_arr[n]);
+			};
+			
+			reference front() {return (_arr[0]);};
+			const_reference front() const {return (_arr[0]);};
+			
+			reference back() {return (_arr[_size - 1]);};
+			const_reference back() const {return (_arr[_size - 1]);};
 	};
 }

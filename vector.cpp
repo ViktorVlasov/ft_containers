@@ -3,16 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   vector.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: efumiko <efumiko@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:20:03 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/16 17:28:39 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/17 21:40:47 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <vector>
 #include "vector.hpp"
+
+class A {
+	private:
+		int _num;
+	public:
+		A() { _num = 42; }
+		A(int num) { _num = num; }
+		~A() {}
+		int getNum() { return _num; }
+		void setNum(int num) { _num = num; }	
+};
 
 
 // CONSTRUCTORS
@@ -139,6 +150,19 @@ int test_iterators()
 	third_iter -= 1;
 	std::cout << "first_iter += 3: " << *first_iter << std::endl;
 	std::cout << "third_iter -= 1: " << *third_iter << std::endl;
+
+	// ==================================================================
+	std::cout << std::endl;
+	std::cout << "->" << std::endl;
+
+	A test_1;
+	A test_2(21);
+	std::vector<A> vector_A;
+	vector_A.push_back(test_1);
+	vector_A.push_back(test_2);
+
+	std::vector<A>::iterator it_a = vector_A.begin();
+	std::cout << it_a->getNum() << std::endl;
 	return (1);
 }
 
@@ -210,8 +234,6 @@ int test_reverse_iterators()
 	std::cout << std::endl;
 	std::cout << "=====relational operators=====\n" << std::endl;
 	
-	
-
 	std::cout << "(<, >, <= and >=)" << std::endl;
 	// if (rit_begin  rit_end)
 	// 	std::cout << "rit_begin < rit_end is true" << std::endl;
@@ -225,9 +247,175 @@ int test_reverse_iterators()
 	return (1);
 }
 
+int test_element_access()
+{
+	std::vector<int> test;
+	test.push_back(10);
+	test.push_back(20);
+	test.push_back(30);
+	std::cout << "operator[]: " << test[1] << std::endl;	 
+
+	const std::vector<int> test_const(4, 100);
+	std::cout << "const operator[]: " << test_const[1] << std::endl;	 
+
+	std::cout << "method .at()" << std::endl;
+	try
+	{
+		std::cout << test.at(10) << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+
+	std::cout << "front() and back()" << std::endl;
+	std::cout << test.front() << std::endl;
+	std::cout << test.back() << std::endl;
+	
+	std::cout << "const front() and back()" << std::endl;
+	std::cout << test_const.front() << std::endl;
+	std::cout << test_const.back() << std::endl;
+	return (1);
+}
+
+int test_capacity()
+{
+	std::vector<int> test;
+	test.push_back(10);
+	test.push_back(20);
+	test.push_back(30);
+
+	std::vector<A> test_2(8, 20);
+	test_2.push_back(A(10));
+
+	std::vector<int> test_empty;
+	
+	std::cout << "test.size(): " << test.size() << std::endl;
+	std::cout << "test_2.size(): " << test_2.size() << std::endl;
+
+	std::cout << "test.max_size(): " << test.max_size() << std::endl;
+	std::cout << "test_2.max_size(): " << test_2.max_size() << std::endl;
+
+	std::cout << "test.capacity(): " << test.capacity() << std::endl;
+	std::cout << "test_2.capacity(): " << test_2.capacity() << std::endl;
+
+	if (test_empty.empty()) 
+		std::cout << "test_empty.empty(): true" << std::endl;
+	
+	std::vector<int> test_reserv;
+	std::cout << "test_reserv.capacity() before .reserve(10): " 
+				<< test_reserv.capacity() << std::endl;
+	test_reserv.reserve(10);
+	std::cout << "test_reserv.capacity() after .reserve(10): " 
+				<< test_reserv.capacity() << std::endl;
+	try
+	{
+		std::cout << "try reserve(__n) with __n > max_size(): " << std::endl;
+		test_reserv.reserve(2305843009213693955);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
+	std::cout << "==test .resize()==" << std::endl;  
+	std::vector<int> myvector;
+
+	// set some initial content:
+	for (int i=1;i<10;i++) myvector.push_back(i);
+
+	myvector.resize(5);
+	myvector.resize(8, 100);
+	myvector.resize(12);
+
+	std::cout << "myvector contains:";
+	for (int i=0;i<myvector.size();i++)
+		std::cout << ' ' << myvector[i];
+	std::cout << '\n';
+	
+	return (1);
+}
+
+int	test_modifiers_assign()
+{
+	std::cout << "==assign()==" << std::endl;
+
+	std::vector<int> first(7, 100);
+	std::cout << "before assign first vector contains:";
+	for (int i=0;i<first.size();i++)
+		std::cout << ' ' << first[i];
+	std::cout << '\n';
+	std::cout << "before assign first vector size:" << first.size() << std::endl;
+	std::cout << "before assign first vector capacity:" << first.capacity() << std::endl;
+
+	try
+	{
+		std::cout << std::endl;
+		std::cout << "try assign(__n, 100) with __n > max_size(): " << std::endl;
+		first.assign(2305843009213693955,100);             // 7 ints with a value of 100
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
+	std::cout << std::endl;
+	std::cout << "use assign(21, 42)" << std::endl;
+	first.assign(21, 42);
+	
+	std::cout << "after assign first vector contains:";
+	for (int i=0; i < first.size(); i++)
+		std::cout << ' ' << first[i];
+	std::cout << '\n';
+	std::cout << "after assign first vector size:" << first.size() << std::endl;
+	std::cout << "after assign first vector capacity:" << first.capacity() << std::endl;
+
+	std::cout << std::endl;  
+	std::cout << "==assign() with iterators==" << std::endl;
+
+	std::vector<int> second;
+  	std::vector<int> third;
+	std::vector<int>::iterator it;
+	it = first.begin() + 1;
+
+	second.assign(it, first.end() - 1); // the 5 central values of first
+
+	int myints[] = {1776, 7, 4};
+	third.assign(myints, myints + 2);   // assigning from array.
+
+	std::cout << "Size of second: " << int (second.size()) << '\n';
+	std::cout << "Size of third: " << int (third.size()) << '\n';
+
+	return 1;
+}
+
+int test_modifiers_insert()
+{
+	std::vector<int> myvector (3,100);
+	std::vector<int>::iterator it;
+
+	it = myvector.begin();
+	it = myvector.insert ( it , 200 );
+
+	myvector.insert (it,2,300);
+
+	// "it" no longer valid, get a new one:
+	it = myvector.begin();
+
+	std::vector<int> anothervector (2,400);
+	myvector.insert (it+2,anothervector.begin(),anothervector.end());
+
+	int myarray [] = { 501,502,503 };
+	myvector.insert (myvector.begin(), myarray, myarray+3);
+
+	std::cout << "myvector contains:";
+	for (it=myvector.begin(); it<myvector.end(); it++)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+	return (1);
+}
+
 //  Написать тесты для реверс итератора
-//  Тесты для capacity
-//  Тесты для Element access
 
 //  17.07
 //  Modifiers - assign, insert, swap, clear
@@ -238,6 +426,10 @@ int main(int argc, char const *argv[])
 	//test_constructors();
 	//test_iterators();
 	//test_const_iterators();
-	test_reverse_iterators();
+	//test_reverse_iterators();
+	//test_element_access();
+	//test_capacity();
+	//test_modifiers_assign();
+	test_modifiers_insert();
 }
 

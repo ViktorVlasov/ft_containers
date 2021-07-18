@@ -10,11 +10,11 @@ if [ $# -ne 3 ]; then
 	echo "wrong args"
 else
 	if [ "$1" == "ft" ]; then
+		sed -i "s/std::$2/ft::$2/" "$3"
 		echo "std::$2 replace to ft::$2"
-		sed -i "" "s/std::$2/ft::$2/" "$3"
 	elif [ "$1" == "std" ]; then
+		sed -i "s/ft::$2/std::$2/" "$3"
 		echo "ft::$2 replace to std::$2"
-		sed -i "" "s/ft::$2/std::$2/" "$3"
 	fi
 	clang++ "$3" -g
 fi
