@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:20:03 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/17 21:40:47 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/21 19:04:13 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ class A {
 	*/
 int test_constructors()
 {
-	std::vector<int> first;                                // empty vector of ints
-	std::vector<int> second (4, 100);                       // four ints with value 100
-	std::vector<int> third (second.begin(),second.end());  // iterating through second
-	std::vector<int> fourth (third);                       // a copy of third
+	ft::vector<int> first;                                // empty vector of ints
+	ft::vector<int> second (4, 100);                       // four ints with value 100
+	ft::vector<int> third (second.begin(),second.end());  // iterating through second
+	ft::vector<int> fourth (third);                       // a copy of third
 	
 	//std::cout << "fill and range with double" << std::endl;
-	std::vector<double> fill_with_double(5, 100.1);                       // four ints with value 100
-	std::vector<double> range_with_double(fill_with_double.begin(),fill_with_double.end());  // iterating through second
+	ft::vector<double> fill_with_double(5, 100.1);                       // four ints with value 100
+	ft::vector<double> range_with_double(fill_with_double.begin(),fill_with_double.end());  // iterating through second
 
 	std::cout << "capacity: " << std::endl;
 	std::cout << first.capacity() << std::endl;
@@ -67,10 +67,10 @@ int test_constructors()
 	std::cout << range_with_double.size() << std::endl;
 	
 	int myints[] = {16,2,77,29};
-  	std::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
+  	ft::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
 
   	std::cout << "The contents of fifth are:";
-  	for (std::vector<int>::iterator it = fifth.begin(); it != fifth.end(); ++it)
+  	for (ft::vector<int>::iterator it = fifth.begin(); it != fifth.end(); ++it)
       	std::cout << ' ' << *it;
   	std::cout << '\n';
 	return (1);
@@ -80,7 +80,7 @@ int test_iterators()
 {
 	// ==================================================================
 	std::cout << "test .begin() and .end() with empty vector" << std::endl;
-	std::vector<int> empty;
+	ft::vector<int> empty;
 
 	if (empty.begin() == empty.end())
 		std::cout << "===WOW, they are equal, but dereference iterators leads to segfault===\n" << std::endl;
@@ -89,27 +89,27 @@ int test_iterators()
 	// ==================================================================
 	std::cout << "test .begin() and .end() with fill vector" << std::endl;
 
-	std::vector<int> test (4, 44);
+	ft::vector<int> test (4, 44);
 	*test.begin() = 10;
 	*(--test.end()) = 50;
 	
 	std::cout << "The contents of test:";
-	for (std::vector<int>::iterator it = test.begin(); it != test.end(); ++it)
+	for (ft::vector<int>::iterator it = test.begin(); it != test.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << '\n' << std::endl;
 
 	// test valid expressions
-	std::vector<int>::iterator first_iter = test.begin();
-	std::vector<int>::iterator second_iter = first_iter + 2;
+	ft::vector<int>::iterator first_iter = test.begin();
+	ft::vector<int>::iterator second_iter = first_iter + 2;
 	std::cout << *first_iter << " " << *second_iter << std::endl;
 	
 	// ==================================================================
 	std::cout << "CONSTRUCTORS OF ITERATORS, equality/inequality (== and !=)" << std::endl;
-	std::vector<int>::iterator default_iter;
-	std::vector<int>::iterator copy_iterator(first_iter);
+	ft::vector<int>::iterator default_iter;
+	ft::vector<int>::iterator copy_iterator(first_iter);
 	if (copy_iterator == first_iter)
 		std::cout << "copy_iterator == first_iter is true" << std::endl;
-	std::vector<int>::iterator assign_iter = second_iter;
+	ft::vector<int>::iterator assign_iter = second_iter;
 	if (assign_iter == second_iter)
 		std::cout << "assign_iter == second_iter is true" << std::endl;
 	if (first_iter != second_iter)
@@ -126,7 +126,7 @@ int test_iterators()
 	std::cout << "*(--first_iter): " << *(--first_iter) << std::endl;
 
 	// ==================================================================
-	std::vector<int>::iterator third_iter = 2 + first_iter;
+	ft::vector<int>::iterator third_iter = 2 + first_iter;
 	std::cout << "*third_iter after =#=third_iter = 2 + first_iter=#=: " << *third_iter << std::endl;
 	std::cout << "third_iter - first_iter: " << third_iter - first_iter << std::endl;
 	std::cout << "*(third_iter - 2): " << *(third_iter - 2) << std::endl;
@@ -157,29 +157,29 @@ int test_iterators()
 
 	A test_1;
 	A test_2(21);
-	std::vector<A> vector_A;
+	ft::vector<A> vector_A;
 	vector_A.push_back(test_1);
 	vector_A.push_back(test_2);
 
-	std::vector<A>::iterator it_a = vector_A.begin();
+	ft::vector<A>::iterator it_a = vector_A.begin();
 	std::cout << it_a->getNum() << std::endl;
 	return (1);
 }
 
 int test_const_iterators()
 {
-	std::vector<int> test;
+	ft::vector<int> test;
 	test.push_back(10);
 	test.push_back(20);
 	test.push_back(30);
-	std::vector<int>::const_iterator first_iter = test.begin();
-	std::vector<int>::const_iterator second_iter = --(test.end());
+	ft::vector<int>::const_iterator first_iter = test.begin();
+	ft::vector<int>::const_iterator second_iter = --(test.end());
 
-	std::vector<int>::const_iterator default_iter;
-	std::vector<int>::const_iterator copy_iterator(first_iter);
+	ft::vector<int>::const_iterator default_iter;
+	ft::vector<int>::const_iterator copy_iterator(first_iter);
 	if (copy_iterator == first_iter)
 		std::cout << "copy_iterator == first_iter is true" << std::endl;
-	std::vector<int>::const_iterator assign_iter = first_iter;
+	ft::vector<int>::const_iterator assign_iter = first_iter;
 	if (assign_iter == first_iter)
 		std::cout << "assign_iter == first_iter is true" << std::endl;
 	if (first_iter != second_iter)
@@ -191,17 +191,17 @@ int test_const_iterators()
 
 int test_reverse_iterators()
 {
-	std::vector<int> test;
+	ft::vector<int> test;
 	test.push_back(10);
 	test.push_back(20);
 	test.push_back(30);
 
 	std::cout << "myvector contains:";
-  	for (std::vector<int>::iterator it = test.begin(); it != test.end(); ++it)
+  	for (ft::vector<int>::iterator it = test.begin(); it != test.end(); ++it)
     	std::cout << ' ' << *it;
   	std::cout << '\n';
 
-	std::vector<int>::reverse_iterator it = test.rbegin();
+	ft::vector<int>::reverse_iterator it = test.rbegin();
 	std::cout << "reverse output from rbegin to rend:";
 	for (; it != test.rend(); it++)
 		std::cout << ' ' << *it;
@@ -209,8 +209,8 @@ int test_reverse_iterators()
 
 	// =======================================================
 
-	std::vector<int>::reverse_iterator rit_begin = test.rbegin();
-	std::vector<int>::reverse_iterator rit_end = --test.rend();
+	ft::vector<int>::reverse_iterator rit_begin = test.rbegin();
+	ft::vector<int>::reverse_iterator rit_end = --test.rend();
 	std::cout << "test.rbegin(): " << *rit_begin << std::endl;
 	std::cout << "--test.rend(): " << *rit_end << std::endl;
 
@@ -249,13 +249,13 @@ int test_reverse_iterators()
 
 int test_element_access()
 {
-	std::vector<int> test;
+	ft::vector<int> test;
 	test.push_back(10);
 	test.push_back(20);
 	test.push_back(30);
 	std::cout << "operator[]: " << test[1] << std::endl;	 
 
-	const std::vector<int> test_const(4, 100);
+	const ft::vector<int> test_const(4, 100);
 	std::cout << "const operator[]: " << test_const[1] << std::endl;	 
 
 	std::cout << "method .at()" << std::endl;
@@ -280,15 +280,15 @@ int test_element_access()
 
 int test_capacity()
 {
-	std::vector<int> test;
+	ft::vector<int> test;
 	test.push_back(10);
 	test.push_back(20);
 	test.push_back(30);
 
-	std::vector<A> test_2(8, 20);
+	ft::vector<A> test_2(8, 20);
 	test_2.push_back(A(10));
 
-	std::vector<int> test_empty;
+	ft::vector<int> test_empty;
 	
 	std::cout << "test.size(): " << test.size() << std::endl;
 	std::cout << "test_2.size(): " << test_2.size() << std::endl;
@@ -302,7 +302,7 @@ int test_capacity()
 	if (test_empty.empty()) 
 		std::cout << "test_empty.empty(): true" << std::endl;
 	
-	std::vector<int> test_reserv;
+	ft::vector<int> test_reserv;
 	std::cout << "test_reserv.capacity() before .reserve(10): " 
 				<< test_reserv.capacity() << std::endl;
 	test_reserv.reserve(10);
@@ -319,7 +319,7 @@ int test_capacity()
 	}
 	
 	std::cout << "==test .resize()==" << std::endl;  
-	std::vector<int> myvector;
+	ft::vector<int> myvector;
 
 	// set some initial content:
 	for (int i=1;i<10;i++) myvector.push_back(i);
@@ -340,7 +340,7 @@ int	test_modifiers_assign()
 {
 	std::cout << "==assign()==" << std::endl;
 
-	std::vector<int> first(7, 100);
+	ft::vector<int> first(7, 100);
 	std::cout << "before assign first vector contains:";
 	for (int i=0;i<first.size();i++)
 		std::cout << ' ' << first[i];
@@ -373,9 +373,9 @@ int	test_modifiers_assign()
 	std::cout << std::endl;  
 	std::cout << "==assign() with iterators==" << std::endl;
 
-	std::vector<int> second;
-  	std::vector<int> third;
-	std::vector<int>::iterator it;
+	ft::vector<int> second;
+  	ft::vector<int> third;
+	ft::vector<int>::iterator it;
 	it = first.begin() + 1;
 
 	second.assign(it, first.end() - 1); // the 5 central values of first
@@ -391,25 +391,27 @@ int	test_modifiers_assign()
 
 int test_modifiers_insert()
 {
-	std::vector<int> myvector (3,100);
-	std::vector<int>::iterator it;
+	ft::vector<int> myvector (3,100);
+	ft::vector<int>::iterator it;
+	ft::vector<int>::iterator start;
+
 
 	it = myvector.begin();
-	it = myvector.insert ( it , 200 );
+	it = myvector.insert(it, 200);
 
-	myvector.insert (it,2,300);
-
-	// "it" no longer valid, get a new one:
+	myvector.insert(it,2,300);
+	
+	// // "it" no longer valid, get a new one:
 	it = myvector.begin();
 
-	std::vector<int> anothervector (2,400);
+	ft::vector<int> anothervector (2,400);
 	myvector.insert (it+2,anothervector.begin(),anothervector.end());
 
 	int myarray [] = { 501,502,503 };
 	myvector.insert (myvector.begin(), myarray, myarray+3);
 
 	std::cout << "myvector contains:";
-	for (it=myvector.begin(); it<myvector.end(); it++)
+	for (it = myvector.begin(); it < myvector.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 	return (1);

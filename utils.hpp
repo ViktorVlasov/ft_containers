@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: efumiko <efumiko@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 19:23:45 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/09 21:21:12 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/20 19:00:59 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,34 @@ namespace ft {
     {
         typedef T type;
     };
+
+    template <class A, class B>
+	class pair
+	{
+	public:
+		typedef pair<A, B> 			pair_type;
+		typedef A 					first_type;
+		typedef B 					second_type;
+
+		first_type first;
+		second_type second;
+
+		pair() : first(), second(){};
+
+		template <class C, class D>
+		pair(const pair<C, D> &other) : first(other.first), second(other.second) {}
+
+		pair(const pair_type &other) : first(other.first), second(other.second) {}
+
+		pair(const first_type &a, const second_type &b) : first(a), second(b) {}
+
+		pair &operator=(const pair_type &other)
+		{
+			if (this == &other)
+				return (*this);
+			first = other.first;
+			second = other.second;
+			return (*this);
+		}
+	};
 }

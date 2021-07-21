@@ -6,13 +6,14 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:27:50 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/17 21:37:44 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/21 18:52:05 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <memory>
 #include <utility>
 #include <iostream>
+#include <string.h>
 #include "vector_iterator.hpp"
 #include "utils.hpp"
 
@@ -225,10 +226,54 @@ namespace ft
 			};
 
 			// std::vector::insert
-			iterator insert (iterator position, const value_type& val)
+
+			iterator insert(iterator position, const value_type& val)
 			{
-				
+				size_type before = position - begin();
+				insert(position, 1, val);
+				return iterator(_arr + before);
 			}
+
+			void insert (iterator position, size_type n, const value_type& val)
+			{	
+				if (n == 0)
+					return ;
+				difference_type distance_size = end() - position;
+				difference_type before = position - begin();
+				if (_size + n > _capacity)
+					realloc(_capacity + n);
+				//iterator position(&data[idx]);
+				if (_size != 0)
+				{
+					size_type last_elem = _size - 1;
+					for (size_type i = distance_size; i > 0; --i, --last_elem)
+						memmove(_arr + last_elem + n, _arr + last_elem, sizeof(value_type));
+				}
+				for (size_type i = 0; i < n; ++i) 
+					_alloc.construct(_arr + before + i, val);
+				_size += n;
+			}
+
+
+			template <class InputIterator>
+			void insert (iterator position, InputIterator first, InputIterator last,
+						typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0)
+			{
+				difference_type before = position - begin();
+				size_type n = 0;
+				InputIterator tmp(first);
+				while (tmp++ != last)
+					++n;
+				if (n <= 0)
+					return ;
+				if (_size + n > _capacity)
+					realloc(_capacity + n);
+				iterator newPosition(_arr + before);
+				for (; n > 0; --n, ++first, ++newPosition)
+					insert(newPosition, *first);
+			}
+			
+
 		
 		// ====Element access====
 		public:
