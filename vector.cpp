@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:20:03 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/24 01:44:02 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/24 11:54:52 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,12 +233,15 @@ int test_reverse_iterators()
 
 	std::cout << std::endl;
 	std::cout << "=====relational operators=====\n" << std::endl;
+
+	rit_begin = test.rbegin();
+	rit_end = --test.rend();
 	
 	std::cout << "(<, >, <= and >=)" << std::endl;
-	// if (rit_begin  rit_end)
-	// 	std::cout << "rit_begin < rit_end is true" << std::endl;
-	// if (rit_end > rit_begin)
-	// 	std::cout << "rit_begin > rit_end is true" << std::endl;
+	if (rit_begin < rit_end)
+		std::cout << "rit_begin < rit_end is true" << std::endl;
+	if (rit_end > rit_begin)
+		std::cout << "rit_begin > rit_end is true" << std::endl;
 	 if (rit_begin <= rit_begin)
 		std::cout << "first_iter <= first_iter is true" << std::endl;
 	if (rit_end >= rit_end)
@@ -430,7 +433,7 @@ void test_relational_operators()
 	if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
 }
 
-void swap_test()
+void test_swap()
 {
 	ft::vector<int> foo (3,100);   // three ints with a value of 100
 	ft::vector<int> bar (5,200);   // five ints with a value of 200
@@ -460,7 +463,7 @@ void swap_test()
 
 }
 
-void erase_test()
+void test_erase()
 {
   ft::vector<int> myvector;
 
@@ -492,13 +495,13 @@ int main(int argc, char const *argv[])
 	//test_constructors();
 	//test_iterators();
 	//test_const_iterators();
-	//test_reverse_iterators();
+	test_reverse_iterators();
 	//test_element_access();
 	//test_capacity();
 	//test_modifiers_assign();
 	//test_modifiers_insert();
-	// test_relational_operators();
-	// swap_test();
-	// erase_test();
+	//test_relational_operators();
+	//test_swap();
+	//test_erase();
 }
 
