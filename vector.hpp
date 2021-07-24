@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:27:50 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/21 18:52:05 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/24 01:37:53 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,7 +272,35 @@ namespace ft
 				for (; n > 0; --n, ++first, ++newPosition)
 					insert(newPosition, *first);
 			}
+
+			iterator erase (iterator position)
+			{
+				return (erase(position, position + 1));
+			}
 			
+			iterator erase (iterator first, iterator last)
+			{
+				if (first == end() || first == last)
+					return (first);
+				
+				size_type start_i = first - begin();
+				size_type tmp_i = start_i;
+				size_type n = last - first;
+
+				for (; first != last; first++, start_i++)
+					_alloc.destroy(&_arr[start_i]);
+				_size -= n;
+				memmove(_arr + tmp_i, _arr + tmp_i + n, sizeof(value_type) * (_size - tmp_i));
+				return (iterator(_arr + tmp_i));
+			}
+			
+			void swap (vector& x)
+			{
+				ft::swap(_arr, x._arr);
+				ft::swap(_size, x._size);
+				ft::swap(_capacity, x._capacity);
+				ft::swap(_alloc, x._alloc);
+			};
 
 		
 		// ====Element access====
@@ -302,5 +330,44 @@ namespace ft
 			
 			reference back() {return (_arr[_size - 1]);};
 			const_reference back() const {return (_arr[_size - 1]);};
+
 	};
+
+	template<class T, class Alloc>
+	bool operator==(const ft::vector<T, Alloc> &lhs, const ft::vector<T, Alloc> &rhs) 
+	{
+		if (lhs.size() != rhs.size())
+			return (false);
+		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+	}
+
+	template<class T, class Alloc>
+	bool operator!=(const ft::vector<T, Alloc> &lhs, const ft::vector<T, Alloc> &rhs) {
+		return (!(lhs == rhs));
+	}
+
+	template<class T, class Alloc>
+	bool operator<(const ft::vector<T, Alloc> &lhs, const ft::vector<T, Alloc> &rhs) {
+		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+	}
+
+	template<class T, class Alloc>
+	bool operator>(const ft::vector<T, Alloc> &lhs, const ft::vector<T, Alloc> &rhs) {
+		return (rhs < lhs);
+	}
+
+	template<class T, class Alloc>
+	bool operator>=(const ft::vector<T, Alloc> &lhs, const ft::vector<T, Alloc> &rhs) {
+		return (!(lhs < rhs));
+	}
+
+	template<class T, class Alloc>
+	bool operator<=(const ft::vector<T, Alloc> &lhs, const ft::vector<T, Alloc> &rhs) {
+		return (!(rhs < lhs));
+	}
+
+	template<class T, class Alloc>
+	void swap(ft::vector<T, Alloc> &x, ft::vector<T, Alloc> &y) {
+		x.swap(y);
+	}
 }

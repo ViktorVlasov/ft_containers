@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:20:03 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/21 19:04:13 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/24 01:44:02 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -417,6 +417,70 @@ int test_modifiers_insert()
 	return (1);
 }
 
+void test_relational_operators()
+{
+	ft::vector<int> foo (3,100);   // three ints with a value of 100
+	ft::vector<int> bar (2,200);   // two ints with a value of 200
+
+	if (foo==bar) std::cout << "foo and bar are equal\n";
+	if (foo!=bar) std::cout << "foo and bar are not equal\n";
+	if (foo< bar) std::cout << "foo is less than bar\n";
+	if (foo> bar) std::cout << "foo is greater than bar\n";
+	if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+	if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+}
+
+void swap_test()
+{
+	ft::vector<int> foo (3,100);   // three ints with a value of 100
+	ft::vector<int> bar (5,200);   // five ints with a value of 200
+
+	foo.swap(bar);
+
+	std::cout << "foo contains:";
+	for (unsigned i=0; i<foo.size(); i++)
+		std::cout << ' ' << foo[i];
+	std::cout << '\n';
+
+	std::cout << "bar contains:";
+	for (unsigned i=0; i<bar.size(); i++)
+		std::cout << ' ' << bar[i];
+	std::cout << '\n';
+
+	ft::swap(foo, bar);
+	std::cout << "foo contains:";
+	for (unsigned i=0; i<foo.size(); i++)
+		std::cout << ' ' << foo[i];
+	std::cout << '\n';
+
+	std::cout << "bar contains:";
+	for (unsigned i=0; i<bar.size(); i++)
+		std::cout << ' ' << bar[i];
+	std::cout << '\n';
+
+}
+
+void erase_test()
+{
+  ft::vector<int> myvector;
+
+  // set some values (from 1 to 10)
+  for (int i=1; i<=10; i++) myvector.push_back(i);
+
+  // erase the 6th element
+  myvector.erase (myvector.begin()+5);
+
+  // erase the first 3 elements:
+  myvector.erase (myvector.begin(),myvector.begin()+3);
+
+  std::cout << "myvector contains:";
+  for (unsigned i=0; i<myvector.size(); ++i)
+    std::cout << ' ' << myvector[i];
+  std::cout << '\n';
+}
+
+
+
 //  Написать тесты для реверс итератора
 
 //  17.07
@@ -432,6 +496,9 @@ int main(int argc, char const *argv[])
 	//test_element_access();
 	//test_capacity();
 	//test_modifiers_assign();
-	test_modifiers_insert();
+	//test_modifiers_insert();
+	// test_relational_operators();
+	// swap_test();
+	// erase_test();
 }
 
