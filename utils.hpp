@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 19:23:45 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/24 01:05:27 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/26 19:53:19 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,33 +83,49 @@ namespace ft {
         b = tmp;
     };
 
-    template <class A, class B>
+	template <class T1, class T2>
 	class pair
 	{
-	public:
-		typedef pair<A, B> 			pair_type;
-		typedef A 					first_type;
-		typedef B 					second_type;
+		public:
+			typedef T1				first_type;
+			typedef T2 				second_type;
 
-		first_type first;
-		second_type second;
+			first_type	first;
+			second_type	second;
 
-		pair() : first(), second(){};
+			pair() : first(), second(){};
 
-		template <class C, class D>
-		pair(const pair<C, D> &other) : first(other.first), second(other.second) {}
+			template <class U, class V>
+			pair(const pair<U, V> &other) : first(other.first), second(other.second) {}
 
-		pair(const pair_type &other) : first(other.first), second(other.second) {}
+			pair(const pair<T1, T2> &other) : first(other.first), second(other.second) {}
 
-		pair(const first_type &a, const second_type &b) : first(a), second(b) {}
+			pair(const first_type &a, const second_type &b) : first(a), second(b) {}
 
-		pair &operator=(const pair_type &other)
-		{
-			if (this == &other)
+			pair &operator=(const pair_type &other)
+			{
+				if (this == &other)
+					return (*this);
+				first = other.first;
+				second = other.second;
 				return (*this);
-			first = other.first;
-			second = other.second;
-			return (*this);
-		}
+			}
+	};
+
+	template <class A, class B>
+	pair<A, B> make_pair(A x, B y)
+	{
+		return (pair<A, B>(x, y));
+	}
+
+	template <class Arg1, class Arg2, class Result>
+	struct binary_function {
+		typedef Arg1 first_argument_type;
+		typedef Arg2 second_argument_type;
+		typedef Result result_type;
+	};
+
+	template <class T> struct less : ft::binary_function<T,T, bool> {
+		bool operator() (const T& x, const T& y) const { return x<y; }
 	};
 }
