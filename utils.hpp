@@ -6,48 +6,48 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 19:23:45 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/27 14:02:36 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/27 18:29:07 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 namespace ft {
 
-    template <typename T, T _value>
-    struct integral_constant 
-    {
-        static const T value = _value;
-    };
+	template <typename T, T _value>
+	struct integral_constant 
+	{
+		static const T value = _value;
+	};
 
-    struct true_type : public integral_constant<bool, true> {};
-    struct false_type : public integral_constant<bool, false> {};
+	struct true_type : public integral_constant<bool, true> {};
+	struct false_type : public integral_constant<bool, false> {};
 
 	template <class> struct is_integral : public false_type {};
 	template<> struct is_integral<bool> : public true_type {};
-    template<> struct is_integral<char> : public true_type {};
-    template<> struct is_integral<wchar_t> : public true_type {};
-    template<> struct is_integral<signed char> : public true_type {};
-    template<> struct is_integral<unsigned char> : public true_type {};
+	template<> struct is_integral<char> : public true_type {};
+	template<> struct is_integral<wchar_t> : public true_type {};
+	template<> struct is_integral<signed char> : public true_type {};
+	template<> struct is_integral<unsigned char> : public true_type {};
 
-    template<> struct is_integral<int> : public true_type {};
-    template<> struct is_integral<unsigned int> : public true_type {};
-    
-    template<> struct is_integral<short int> : public true_type {};
-    template<> struct is_integral<unsigned short int> : public true_type {};
-    
-    template<> struct is_integral<long int> : public true_type {};
-    template<> struct is_integral<unsigned long int> : public true_type {};
-    
+	template<> struct is_integral<int> : public true_type {};
+	template<> struct is_integral<unsigned int> : public true_type {};
+	
+	template<> struct is_integral<short int> : public true_type {};
+	template<> struct is_integral<unsigned short int> : public true_type {};
+	
+	template<> struct is_integral<long int> : public true_type {};
+	template<> struct is_integral<unsigned long int> : public true_type {};
+	
 	template<> struct is_integral<long long int> : public true_type {};
 	template<> struct is_integral<unsigned long long int> : public true_type {};
 	
-    template <bool, typename T = void>
-    struct enable_if {};
+	template <bool, typename T = void>
+	struct enable_if {};
 
-    template <typename T>
-    struct enable_if <true, T> 
-    {
-        typedef T type;
-    };
+	template <typename T>
+	struct enable_if <true, T> 
+	{
+		typedef T type;
+	};
 
 
 	template <class InputIterator1, class InputIterator2>
@@ -76,12 +76,12 @@ namespace ft {
 	}
 
 	template <typename A>
-    void swap(A& a, A&b)
-    {
-        A tmp = a;
-        a = b;
-        b = tmp;
-    };
+	void swap(A& a, A&b)
+	{
+		A tmp = a;
+		a = b;
+		b = tmp;
+	};
 
 	template <class T1, class T2>
 	class pair
@@ -128,4 +128,26 @@ namespace ft {
 	template <class T> struct less : ft::binary_function<T,T, bool> {
 		bool operator() (const T& x, const T& y) const { return x<y; }
 	};
+
+	template<typename _Arg, typename _Result>
+	struct unary_function
+	{
+		typedef _Arg 		argument_type;   
+		typedef _Result 	result_type;  
+	};
+
+	template <class Pair>
+	struct Select1st : public ft::unary_function<Pair, typename Pair::first_type>
+	{
+		typename Pair::first_type& operator()(Pair& __x) const { return (__x.first); }
+		const typename Pair::first_type& operator()(const Pair& __x) const { return (__x.first); }
+	};
+	
+	template<typename Tp>
+	struct Identity : public ft::unary_function<Tp, Tp>
+	{
+		Tp& operator()(Tp& x) const { return (x); }
+		const Tp& operator()(const Tp& x) const { return x; }
+	};
+
 }

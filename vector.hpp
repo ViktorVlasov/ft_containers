@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:27:50 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/24 01:37:53 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/27 18:32:54 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ namespace ft
 			if (n > max_size())
 				throw std::length_error("vector::reserve");
 			if (n > _capacity)
-				realloc(n);
+				_my_realloc(n);
 		}
 		
 		void resize (size_type n, value_type val = value_type())
@@ -143,8 +143,7 @@ namespace ft
 		}
 		
 		private:
-			// проверить, точно ли все корректно
-			void realloc(size_type newCapacity)
+			void _my_realloc(size_type newCapacity)
 			{
 				pointer tmp = _alloc.allocate(newCapacity);
 				for (size_type i = 0; i < _size; ++i)
@@ -209,7 +208,6 @@ namespace ft
 				_size++;
 			}
 
-			// pop_back
 			void pop_back() 
 			{
 				if (_size)
@@ -225,8 +223,6 @@ namespace ft
 					pop_back();
 			};
 
-			// std::vector::insert
-
 			iterator insert(iterator position, const value_type& val)
 			{
 				size_type before = position - begin();
@@ -241,8 +237,7 @@ namespace ft
 				difference_type distance_size = end() - position;
 				difference_type before = position - begin();
 				if (_size + n > _capacity)
-					realloc(_capacity + n);
-				//iterator position(&data[idx]);
+					_my_realloc(_capacity + n);
 				if (_size != 0)
 				{
 					size_type last_elem = _size - 1;
@@ -267,17 +262,13 @@ namespace ft
 				if (n <= 0)
 					return ;
 				if (_size + n > _capacity)
-					realloc(_capacity + n);
+					_my_realloc(_capacity + n);
 				iterator newPosition(_arr + before);
 				for (; n > 0; --n, ++first, ++newPosition)
 					insert(newPosition, *first);
 			}
 
-			iterator erase (iterator position)
-			{
-				return (erase(position, position + 1));
-			}
-			
+			iterator erase (iterator position) { return (erase(position, position + 1)); }
 			iterator erase (iterator first, iterator last)
 			{
 				if (first == end() || first == last)
