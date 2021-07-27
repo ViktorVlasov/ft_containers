@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 19:03:17 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/26 21:17:30 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/27 02:23:19 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ namespace ft
 	  	typedef T&									reference;
 	  	typedef T*									pointer;
 		typedef RB_tree_iterator<T>					iterator_type;
-	  	typedef RB_node::RB_ptr						RB_ptr;
-	  	typedef RB_base<T>*							link;
+		typedef std::bidirectional_iterator_tag		iterator_category;
+		
+		typedef TreeNode<key_type, mapped_type>		TreeNode;
+
 
 		RB_ptr node;
 		RB_ptr end;

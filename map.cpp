@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 18:57:31 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/24 21:57:38 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/27 04:51:59 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,12 @@ int main() {
 	//test_constructors();
 	// test_iterators();
 	// test_reverse_iterator();
+	std::map<char,int> mymap;
+
+	mymap['x'] = 100;
+	mymap['y'] = 200;
+	mymap['z'] = 300;
+
+	std::map<char,int>::iterator it = mymap.begin();
 
 }
