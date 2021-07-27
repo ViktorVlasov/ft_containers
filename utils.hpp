@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 19:23:45 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/26 19:53:19 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/27 14:02:36 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ namespace ft {
 
 			pair(const first_type &a, const second_type &b) : first(a), second(b) {}
 
-			pair &operator=(const pair_type &other)
+			pair &operator=(const pair<first_type, second_type>  &other)
 			{
 				if (this == &other)
 					return (*this);
