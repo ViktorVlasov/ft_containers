@@ -6,12 +6,14 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 04:50:59 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/27 05:56:20 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/28 01:03:59 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.hpp"
-#include "RBtree.hpp"
+#ifndef RBTREE_ITERATOR_HPP
+# define RBTREE_ITERATOR_HPP
+
+# include "utils.hpp"
 
 namespace ft {
 
@@ -248,3 +250,8 @@ namespace ft {
 		friend bool operator!=(const iterator_type& x, const iterator_type& y) {return (x.node != y.node);}
 	};
 }
+
+# include "RBtree.hpp"
+
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 18:57:27 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/27 18:19:19 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/28 01:59:31 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,43 +25,49 @@ namespace ft
 	template < class Key, class T, class Compare = ft::less<Key>, class Alloc = std::allocator<ft::pair<const Key,T> > >
 	class map
 	{
-	private:
-	
-		class val_comp: public ft::binary_function<ft::pair<const Key, T>, ft::pair<const Key, T>, bool>
-		{
-    		friend class map<Key, T, Compare, Alloc>;
-   		protected:
-    		Compare comp;
-			val_comp(Compare c) : comp(c) { }
-   		public:
-			typedef bool						result_type;
-			typedef ft::pair<const Key, T>		first_argument_type;
-			typedef ft::pair<const Key, T>		second_argument_type;
-    		bool operator()(const ft::pair<const Key, T>& x, const ft::pair<const Key, T>& y) const {return comp(x.first, y.first);}
-  		};
-
-	private:
-		typedef RBT<Key, ft::pair<const Key, T>, Select1st< ft::pair<const Key, T> >, Compare>	Tree;
-		
-		Tree	tree;
-
 	public:
 		typedef	Key											key_type;
 		typedef	T											mapped_type;
 		typedef	ft::pair<const Key, T>						value_type;
 		typedef	Compare										key_compare;
-		typedef	val_comp									value_compare;
 		typedef	Alloc										allocator_type;
 		typedef	value_type&									reference;
 		typedef	const value_type&							const_reference;
 		typedef	value_type*									pointer;
 		typedef	const value_type*							const_pointer;
+		typedef ptrdiff_t									difference_type;
+
+
+	private:
+		typedef RBT<Key, value_type, Select1st<value_type>, Compare>	Tree;
+		Tree	tree;
+	
+		class val_comp: public ft::binary_function<value_type, value_type, bool>
+		{
+    		friend class map;
+   		protected:
+    		Compare comp;
+			val_comp(Compare c) : comp(c) { }
+   		public:
+			typedef bool			result_type;
+			typedef value_type		first_argument_type;
+			typedef value_type		second_argument_type;
+    		bool operator()(const value_type& x, const value_type& y) const 
+			{
+				return comp(x.first, y.first);
+			}
+  		};
+	
+	public:
+		typedef	val_comp									value_compare;
 		typedef	typename Tree::iterator						iterator;
 		typedef	typename Tree::const_iterator				const_iterator;
 		typedef	typename Tree::reverse_iterator				reverse_iterator;
 		typedef	typename Tree::const_reverse_iterator		const_reverse_iterator;
 		typedef	typename Tree::size_type					size_type;
 
+	
+	public:
 
 		map(): tree() { }
 		map(const map& x) : tree(x.tree) { }
@@ -128,7 +134,7 @@ namespace ft
 		
 		// ****OBSERVERS****
 		key_compare		key_comp()	const	{ return (tree.key_comp()); }
-		value_compare	value_com()	const	{ return (value_compare(tree.key_comp())); }
+		value_compare	value_comp()	const	{ return (value_compare(tree.key_comp())); }
 
 
 		// ****OPERATIONS****

@@ -6,18 +6,18 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 09:25:24 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/27 06:01:00 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/28 01:21:31 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TREE_HPP
-#define TREE_HPP
-#include <iterator>
-#include <limits>
-#include <iostream>
-#include <vector>
+#ifndef RBTREE_HPP
+# define RBTREE_HPP
+# include <iterator>
+# include <limits>
+# include <iostream>
+# include <vector>
 
-#include "utils.hpp"
+# include "utils.hpp"
 
 namespace ft {
     
@@ -157,17 +157,18 @@ namespace ft {
 		T 								value_type;
 	};
 
-    template<class T>
-    class RBT_iterator;
+	template<class T>
+	class RBT_iterator;
 
-    template<class T>
-    class RBT_const_iterator;
+	template<class T>
+	class RBT_const_iterator;
 
-    template<class T>
-    class RBT_reverse_iterator;
+	template<class T>
+	class RBT_reverse_iterator;
 
-    template<class T>
-    class RBT_const_reverse_iterator;
+	template<class T>
+	class RBT_const_reverse_iterator;
+
 
 	template<class key_type, class value_type, class key_val, class compare>
 	class RBT
@@ -588,8 +589,10 @@ namespace ft {
 		
 		size_type size() const { return (head->node_count); }
 		
-		size_type max_size() const  { 
-		return (std::numeric_limits<size_type>::max() / sizeof(RB_base<value_type>)); }
+		size_type max_size() const  
+		{ 
+			return (std::numeric_limits<size_type>::max() / sizeof(RB_base<value_type>)) / 2; 
+		}
 		
 		void swap(RBT &t)
 		{
@@ -818,5 +821,7 @@ namespace ft {
 	};
 
 }
+
+# include "RBtree_iterator.hpp"
 
 #endif

@@ -6,9 +6,12 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 19:23:45 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/27 18:29:07 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/28 01:04:44 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef UTILS_HPP
+# define UTILS_HPP
 
 namespace ft {
 
@@ -120,9 +123,9 @@ namespace ft {
 
 	template <class Arg1, class Arg2, class Result>
 	struct binary_function {
-		typedef Arg1 first_argument_type;
-		typedef Arg2 second_argument_type;
-		typedef Result result_type;
+		typedef Arg1	first_argument_type;
+		typedef Arg2	second_argument_type;
+		typedef Result	result_type;
 	};
 
 	template <class T> struct less : ft::binary_function<T,T, bool> {
@@ -151,3 +154,5 @@ namespace ft {
 	};
 
 }
+
+#endif
