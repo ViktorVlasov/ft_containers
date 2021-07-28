@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 13:40:32 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/27 15:32:20 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/28 18:07:58 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void test_constructors()
 {
 	ft::stack<int> first;
 	
-	ft::stack<int,std::vector<int>> second;
+	ft::stack<int,std::vector<int> > second;
 	
 	ft::vector<int> myvector (2,200);
-	ft::stack<int,ft::vector<int>> third(myvector);
+	ft::stack<int,ft::vector<int> > third(myvector);
 	
-	ft::stack<int, std::deque<int>> fourth;
+	ft::stack<int, std::deque<int> > fourth;
 
 	std::cout << "size of first: " << first.size() << '\n';
 	std::cout << "size of second: " << second.size() << '\n';

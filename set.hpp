@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 18:34:43 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/28 01:19:48 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/28 15:53:13 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ namespace ft {
 
 
 		// ****OBSERVERS****
-		key_compare		key_comp()	const	{ return (tree.key_comp()); }
-		value_compare	value_com()	const	{ return (tree.key_comp()); }
+		key_compare		key_comp()		const	{ return (tree.key_comp()); }
+		value_compare	value_comp()	const	{ return (tree.key_comp()); }
 
 
 		// ****OPERATIONS****

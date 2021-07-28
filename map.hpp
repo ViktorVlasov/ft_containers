@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 18:57:27 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/28 01:59:31 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/28 15:16:04 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ namespace ft
 		typedef	const value_type&							const_reference;
 		typedef	value_type*									pointer;
 		typedef	const value_type*							const_pointer;
-		typedef ptrdiff_t									difference_type;
-
 
 	private:
 		typedef RBT<Key, value_type, Select1st<value_type>, Compare>	Tree;

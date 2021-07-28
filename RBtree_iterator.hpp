@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 04:50:59 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/28 01:03:59 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/28 19:47:32 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ namespace ft {
 		typedef T									value_type;
 	  	typedef T&									reference;
 	  	typedef T*									pointer;
-		typedef RBT_iterator<T>					iterator_type;
+		typedef RBT_iterator<T>						iterator_type;
 	  	typedef RB_node::RB_ptr						RB_ptr;
 	  	typedef RB_base<T>*							link_type;
 
@@ -82,7 +82,7 @@ namespace ft {
 		typedef T									value_type;
 	  	typedef T&									reference;
 	  	typedef T*									pointer;
-		typedef RBT_reverse_iterator<T>			iterator_type;
+		typedef RBT_reverse_iterator<T>				iterator_type;
 	  	typedef RB_node::RB_ptr						RB_ptr;
 	  	typedef RB_base<T>*							link_type;
 

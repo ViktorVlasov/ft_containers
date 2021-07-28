@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:27:50 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/27 18:32:54 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/28 17:42:20 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,16 +303,16 @@ namespace ft
 			{
 				if (n >= _size)
 					throw std::out_of_range("vector::_M_range_check: __n (which is " + 
-											std::to_string(n) + ") >= this->size() (which is " + 
-											std::to_string(_size) + ")");
+											SSTR(n) + ") >= this->size() (which is " + 
+											SSTR(_size) + ")");
 				return (_arr[n]);
 			};
 			const_reference at (size_type n) const
 			{
 				if (n >= _size)
 					throw std::out_of_range("vector::_M_range_check: __n (which is " + 
-											std::to_string(n) + ") >= this->size() (which is " + 
-											std::to_string(_size) + ")");
+											SSTR(n) + ") >= this->size() (which is " + 
+											SSTR(_size) + ")");
 				return (_arr[n]);
 			};
 			

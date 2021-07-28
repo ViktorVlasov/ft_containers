@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 09:25:24 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/28 01:21:31 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/28 19:57:32 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,16 +187,18 @@ namespace ft {
 	  	compare			key_compare;
 		
 		protected:
-		link_type _begin() { return (static_cast<link_type>(head->header.parent)); }
-		const_link_type _begin() const { return (static_cast<const_link_type>(head->header.parent)); }
-		RB_node* _end(){ return (&head->header); }
-		const RB_node* _end() const { return (&head->header); }
-		const key_type& _s_key(const_link_type x) const { return (key_val()(*x->getptr())); }
-		const key_type& _s_key(const RB_node* x) const { return (_s_key(static_cast<const_link_type>(x))); }
-		link_type _s_left(RB_node* x) { return (static_cast<link_type>(x->left)); }
-		const_link_type _s_left(const RB_node* x) const { return (static_cast<const_link_type>(x->left)); }
-		link_type _s_right(RB_node* x) { return (static_cast<link_type>(x->right)); }
-		const_link_type _s_right(const RB_node* x) const  { return (static_cast<const_link_type>(x->right)); }
+		link_type		_begin()			{ return (static_cast<link_type>(head->header.parent)); }
+		const_link_type	_begin()	const	{ return (static_cast<const_link_type>(head->header.parent)); }
+		RB_node*		_end()				{ return (&head->header); }
+		const RB_node*	_end()		const	{ return (&head->header); }
+		
+		const key_type&	_s_key(const_link_type x)	const	{ return (key_val()(*x->getptr())); }
+		const key_type&	_s_key(const RB_node* x)	const	{ return (_s_key(static_cast<const_link_type>(x))); }
+		
+		link_type		_s_left(RB_node* x)					{ return (static_cast<link_type>(x->left)); }
+		const_link_type	_s_left(const RB_node* x)	const	{ return (static_cast<const_link_type>(x->left)); }
+		link_type		_s_right(RB_node* x)				{ return (static_cast<link_type>(x->right)); }
+		const_link_type	_s_right(const RB_node* x)	const	{ return (static_cast<const_link_type>(x->right)); }
 
 		public:
 		void _leftRotate(RB_node* x)
@@ -576,14 +578,14 @@ namespace ft {
 		
 		compare key_comp() const { return (key_compare); }
 		
-		iterator begin() { return (iterator(head->header.left, _end())); }
-		const_iterator begin() const { return (const_iterator(head->header.left, _end())); }
-		iterator end() { return (iterator(_end(), _end())); }
-		const_iterator end() const { return (const_iterator(_end(), _end())); }
-		reverse_iterator rbegin() { return (++reverse_iterator(_end(), _end())); }
-		const_reverse_iterator rbegin() const { return (++const_reverse_iterator(_end(), _end())); }
-		reverse_iterator rend() { return (reverse_iterator (head->header.left, _end()));}
-		const_reverse_iterator rend() const { return (const_reverse_iterator (head->header.left, _end()));}
+		iterator				begin()				{ return (iterator(head->header.left, _end())); }
+		const_iterator			begin()		const	{ return (const_iterator(head->header.left, _end())); }
+		iterator				end()				{ return (iterator(_end(), _end())); }
+		const_iterator			end()		const	{ return (const_iterator(_end(), _end())); }
+		reverse_iterator 		rbegin()			{ return (++reverse_iterator(_end(), _end())); }
+		const_reverse_iterator	rbegin()	const	{ return (++const_reverse_iterator(_end(), _end())); }
+		reverse_iterator		rend()				{ return (++reverse_iterator(head->header.left, _end()));}
+		const_reverse_iterator	rend()		const	{ return (const_reverse_iterator (head->header.left, _end()));}
 		
 		bool empty() const { return (head->node_count == 0); }
 		

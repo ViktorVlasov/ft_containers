@@ -6,12 +6,17 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 19:23:45 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/28 01:04:44 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/28 17:40:23 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_HPP
 # define UTILS_HPP
+
+#include <sstream>
+
+#define SSTR( x ) static_cast< std::ostringstream & >( \
+        ( std::ostringstream() << std::dec << x ) ).str()
 
 namespace ft {
 
