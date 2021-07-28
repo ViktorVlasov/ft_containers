@@ -6,13 +6,13 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 12:20:03 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/28 17:46:17 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/28 20:02:41 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <vector>
-#include "vector.hpp"
+#include "../vector.hpp"
 
 class A {
 	private:

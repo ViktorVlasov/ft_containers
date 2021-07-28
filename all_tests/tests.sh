@@ -2,8 +2,8 @@
 
 CONTAINER="$1"
 
-./my_change.sh std $CONTAINER $CONTAINER.cpp && ./a.out > std_out
-./my_change.sh ft $CONTAINER $CONTAINER.cpp && ./a.out > my_out
+./change_ns.sh std $CONTAINER $CONTAINER.cpp && ./a.out > std_out
+./change_ns.sh ft $CONTAINER $CONTAINER.cpp && ./a.out > my_out
 
 diff my_out std_out > logs.txt
 ret=$?

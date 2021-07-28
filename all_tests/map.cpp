@@ -6,14 +6,14 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 18:57:31 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/28 18:29:58 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/28 20:03:21 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <map>
 
-#include "map.hpp"
+#include "../map.hpp"
 
 bool fncomp (char lhs, char rhs) {return lhs<rhs;}
 
@@ -25,47 +25,47 @@ struct classcomp {
 
 void test_constructors()
 {
-	std::map<char,int> first;
+	ft::map<char,int> first;
 
 	first['a']=10;
 	first['b']=30;
 	first['c']=50;
 	first['d']=70;
 
-	std::map<char,int> second (first.begin(),first.end());
+	ft::map<char,int> second (first.begin(),first.end());
 
-	std::map<char,int> third (second);
+	ft::map<char,int> third (second);
 
-	std::map<char,int,classcomp> fourth;                 // class as Compare
+	ft::map<char,int,classcomp> fourth;                 // class as Compare
 
 	bool(*fn_pt)(char,char) = fncomp;
-	std::map<char,int,bool(*)(char,char)> fifth (fn_pt); // function pointer as Compare
+	ft::map<char,int,bool(*)(char,char)> fifth (fn_pt); // function pointer as Compare
 }
 
 void test_iterators() 
 {
 
-	std::map<char,int> mymap;
+	ft::map<char,int> mymap;
 
 	mymap['b'] = 100;
 	mymap['a'] = 200;
 	mymap['c'] = 300;
 
 	// show content:
-	for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+	for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
 		std::cout << it->first << " => " << it->second << '\n';    
 }
 
 void test_reverse_iterator() 
 {
-	std::map<char,int> mymap;
+	ft::map<char,int> mymap;
 
 	mymap['x'] = 100;
 	mymap['y'] = 200;
 	mymap['z'] = 300;
 
 	// show content:
-	std::map<char,int>::reverse_iterator rit;
+	ft::map<char,int>::reverse_iterator rit;
 	for (rit=mymap.rbegin(); rit!=mymap.rend(); ++rit)
 		std::cout << rit->first << " => " << rit->second << '\n';
 }
@@ -74,7 +74,7 @@ void test_capacity()
 { 
 	{
 		std::cout << "EMPTY:\n";
-		std::map<char,int> mymap;
+		ft::map<char,int> mymap;
 
 		mymap['a']=10;
 		mymap['b']=20;
@@ -88,7 +88,7 @@ void test_capacity()
 	}
 	{
 		std::cout << "SIZE:\n";
-		std::map<char,int> mymap;
+		ft::map<char,int> mymap;
 		mymap['a']=101;
 		mymap['b']=202;
 		mymap['c']=302;
@@ -98,7 +98,7 @@ void test_capacity()
 	{
 		std::cout << "MAX_SIZE:\n";
 		int i;
-		std::map<int,int> mymap;
+		ft::map<int,int> mymap;
 
 		std::cout << mymap.max_size() << std::endl;
 		if (mymap.max_size()>1000)
@@ -113,7 +113,7 @@ void test_capacity()
 
 void test_access_elements()
 {
-	std::map<char,std::string> mymap;
+	ft::map<char,std::string> mymap;
 
 	mymap['a']="an element";
 	mymap['b']="another element";
@@ -131,8 +131,8 @@ void test_access_elements()
 
 void test_erase()
 {
-	std::map<char,int> mymap;
-	std::map<char,int>::iterator it;
+	ft::map<char,int> mymap;
+	ft::map<char,int>::iterator it;
 
 	// insert some values:
 	mymap['a']=10;
@@ -157,7 +157,7 @@ void test_erase()
 
 void test_swap()
 {
-	std::map<char,int> foo,bar;
+	ft::map<char,int> foo,bar;
 
 	foo['x']=100;
 	foo['y']=200;
@@ -169,24 +169,24 @@ void test_swap()
 	foo.swap(bar);
 
 	std::cout << "foo contains:\n";
-	for (std::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+	for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
 		std::cout << it->first << " => " << it->second << '\n';
 
 	std::cout << "bar contains:\n";
-	for (std::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+	for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
 		std::cout << it->first << " => " << it->second << '\n';
 }
 
 void test_clear()
 {
-	std::map<char,int> mymap;
+	ft::map<char,int> mymap;
 
 	mymap['x']=100;
 	mymap['y']=200;
 	mymap['z']=300;
 
 	std::cout << "mymap contains:\n";
-	for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+	for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
 		std::cout << it->first << " => " << it->second << '\n';
 
 	mymap.clear();
@@ -194,7 +194,7 @@ void test_clear()
 	mymap['b']=2202;
 
 	std::cout << "mymap contains:\n";
-	for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+	for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
 		std::cout << it->first << " => " << it->second << '\n';
 }
 
@@ -202,8 +202,8 @@ void test_operations()
 {
 	{
 		std::cout << "FIND:\n";
-		std::map<char,int> mymap;
-		std::map<char,int>::iterator it;
+		ft::map<char,int> mymap;
+		ft::map<char,int>::iterator it;
 
 		mymap['a']=50;
 		mymap['b']=100;
@@ -223,7 +223,7 @@ void test_operations()
 
 	{
 		std::cout << "COUNT:\n";
-		std::map<char,int> mymap;
+		ft::map<char,int> mymap;
 		char c;
 
 		mymap ['a']=101;
@@ -242,8 +242,8 @@ void test_operations()
 
 	{
 		std::cout << "BOUND:\n";
-		std::map<char,int> mymap;
-		std::map<char,int>::iterator itlow,itup;
+		ft::map<char,int> mymap;
+		ft::map<char,int>::iterator itlow,itup;
 
 		mymap['a']=20;
 		mymap['b']=40;
@@ -257,7 +257,7 @@ void test_operations()
 		mymap.erase(itlow,itup);        // erases [itlow,itup)
 
 		// print content:
-		for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+		for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
 			std::cout << it->first << " => " << it->second << '\n';
 	}
 
@@ -265,13 +265,13 @@ void test_operations()
 
 int main() 
 {
-	// test_constructors();
-	// test_iterators();
+	test_constructors();
+	test_iterators();
 	test_reverse_iterator();
-	// test_capacity();
-	// test_access_elements();
-	// test_erase();
-	// test_swap();
-	// test_clear();
-	// test_operations();
+	test_capacity();
+	test_access_elements();
+	test_erase();
+	test_swap();
+	test_clear();
+	test_operations();
 }

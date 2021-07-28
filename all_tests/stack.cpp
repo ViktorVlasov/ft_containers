@@ -6,7 +6,7 @@
 /*   By: efumiko <efumiko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 13:40:32 by efumiko           #+#    #+#             */
-/*   Updated: 2021/07/28 18:07:58 by efumiko          ###   ########.fr       */
+/*   Updated: 2021/07/28 20:03:30 by efumiko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <vector>
 #include <deque>
 
-#include "stack.hpp"
+#include "../stack.hpp"
 
 void test_constructors()
 {
